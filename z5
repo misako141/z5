@@ -1,0 +1,77 @@
+using System;
+using static System.Convert;
+using System.Collections;
+using System.Collections.Generic;
+
+
+namespace zadanie5
+{
+    class Program
+    {
+        class Lib1
+        {
+            public class Student
+            {
+                public int id;
+                public string fio;
+                public int group;
+                public string data;
+            }
+            public List<Student> s = new List<Student>();
+            public void adds(int id, string fio, int group, string data){
+                s.Add (new Student() {id = id, fio = fio, group = group, data = data }) ;
+            }
+            public void del(int id){
+                for (int i = 0; i < s.Count; i++){
+                    if (s[i].id == id) s.RemoveAt(i);
+                }
+            }
+            public void izmen(int id, string fio, int group, string data) {
+                for (int i = 0; i < s.Count; i++) {
+                    if (s[i].id == id){
+                        s[i].fio = fio;
+                        s[i].group = group;
+                        s[i].data = data;
+                    }
+                }
+            }
+            public void show() {
+                foreach (var i in s) {
+                    Console.WriteLine(i.id + "\n" + i.fio + "\n" + i.group + "\n" + i.data);
+                }
+            }
+        }
+        static void Main(string[] args) {
+            Lib1 Lib2 = new Lib1();
+            int id = 0;
+            int a;
+            do{
+                Console.WriteLine("Введите ID: ");
+                a = ToInt32(Console.ReadLine());
+                if (a == 1) {
+                    Console.WriteLine("Введите ФИО: ");
+                    string fio = Console.ReadLine();
+                    Console.WriteLine("Введите группу: ");
+                    int group = ToInt32(Console.ReadLine());
+                    Console.WriteLine("Введите дату рождения (дд.мм.гггг): ");
+                    string data = Console.ReadLine();
+                    Lib2.adds(id, fio, group, data);
+                    id++;
+                }
+                else if (a == 2){
+                    int idT = ToInt32(Console.ReadLine());
+                    string fio = Console.ReadLine();
+                    int group = ToInt32(Console.ReadLine());
+                    string data = Console.ReadLine();
+                    Lib2.izmen(idT, fio, group, data);
+                }
+                else if (a == 3){
+                    id = ToInt32(Console.ReadLine());
+                    Lib2.del(id);
+                }
+                else if (a == 4) Lib2.show();
+            } 
+            while (a != 0) ;
+        }
+    }
+}
